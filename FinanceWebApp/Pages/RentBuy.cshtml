@@ -1,0 +1,490 @@
+﻿@page
+@model FinanceWebApp.Pages.RentBuyModel
+@{
+}
+
+<style>
+    .section
+    {
+        overflow:hidden;
+        transition: max-height 0.4s ease-in;
+        height:auto;
+        max-height: 0;
+    }
+
+    .section.expanded {
+        max-height: 500px;
+    }
+
+    .highlight {
+        background-color: #f7f7f9;
+        box-shadow: inset 0 0 5px #c1c1c1;
+    }
+</style>
+
+<h1>Rent vs Buy Calculator</h1>
+
+<form class="mt-4 mb-4">
+    <fieldset class="form-group">
+        <legend>General Assumptions</legend>
+        <label id="genAssumpToggle">+</label>
+        <div id="genAssump" class="section collapsible highlight">
+            <div class="form-group">
+                <label asp-for="InvestmentReturnRate">Investment Return Rate:</label>
+                <div class="input-group mb-3">
+                    <input class="form-control" asp-for="InvestmentReturnRate" />
+                    <div class="input-group-append">
+                        <span class="input-group-text">%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="InflationRate">Inflation Rate:</label>
+                <div class="input-group mb-3">
+                    <input class="form-control" asp-for="InflationRate" />
+                    <div class="input-group-append">
+                        <span class="input-group-text">%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="CapitalGainsTaxRate">Capital Gains Tax Rate:</label>
+                <div class="input-group mb-3">
+                    <input class="form-control" asp-for="CapitalGainsTaxRate" />
+                    <div class="input-group-append">
+                        <span class="input-group-text">%</span>
+                    </div>
+             </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-group">
+                <label asp-for="ResidencyLength">Residency Length (years):</label>
+                <input class="form-control" asp-for="ResidencyLength" />
+            </div>
+            <div class="form-group">
+                <span id="residencyMonths"></span>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset class="form-group">
+        <legend>Purchase Assumptions</legend>
+        <label id="purchaseAssumpToggle">+</label>
+        <div id="purchaseAssump" class="section collapsible highlight">
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <label asp-for="BuyingClosingCostRate">Buying Closing Cost Rate:</label>
+                    <input class="form-control" asp-for="BuyingClosingCostRate"/>
+                    <div class="input-group-append">
+                        <span class="input-group-text">%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <label asp-for="SellingClosingCostRate">Selling Closing Cost Rate:</label>
+                    <input class="form-control" asp-for="SellingClosingCostRate"/>                    
+                    <div class="input-group-append">
+                        <span class="input-group-text">%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <label asp-for="HousePriceGrowthRate">House Price Growth Rate:</label>
+                    <input class="form-control" asp-for="HousePriceGrowthRate"/>
+                    <div class="input-group-append">
+                        <span class="input-group-text">%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <label asp-for="PropertyTaxRate">Property Tax Rate:</label>
+                    <input class="form-control" asp-for="PropertyTaxRate"/>
+                    <div class="input-group-append">
+                        <span class="input-group-text">%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <label asp-for="InsuranceRate">Insurance Rate:</label>
+                    <input class="form-control" asp-for="InsuranceRate"/>
+                    <div class="input-group-append">
+                        <span class="input-group-text">%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <label asp-for="MaintenanceCostRate">Maintenance Cost Rate:</label>
+                    <input class="form-control" asp-for="MaintenanceCostRate"/>
+                    <div class="input-group-append">
+                        <span class="input-group-text">%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="HousePrice">House Price:</label>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">$</span>
+                </div>
+                <input class="form-control" asp-for="HousePrice" />
+                <div class="input-group-append">
+                    <span class="input-group-text">.00</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-group">
+                <label asp-for="DownPaymentPercent">Down Payment %:</label>
+                <div class="input-group mb-3">
+                    <input class="form-control" asp-for="DownPaymentPercent" />
+                    <div class="input-group-append">
+                        <span class="input-group-text">%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <span id="downPayment"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="InterestRate">Interest Rate (APR):</label>
+            <input class="form-control" asp-for="InterestRate"/>
+        </div>
+        <div class="form-group">
+            <label asp-for="MortgageTerm">Mortgage Term (years):</label>
+            <input class="form-control" asp-for="MortgageTerm"/>
+        </div>
+    </fieldset>
+    <input type="button" id="calculateBtn" class="btn btn-primary" value="Calculate"/>
+</form>
+<table id="amortizationTable" class="table table-hover">
+    <thead>
+    <tr>
+        <th colspan="9" class="text-center">Purchase</th>
+        <th colspan="3" class="text-center">Rent</th>
+    </tr>
+    <tr>
+        <th scope="col">Month</th>
+        <th scope="col">Monthly Payment</th>
+        <th scope="col">Principal Payment</th>
+        <th scope="col">Interest Payment</th>
+        <th scope="col">Principal</th>
+        <th scope="col">House Value</th>
+        <th scope="col">Property Tax</th>
+        <th scope="col">Insurance</th>
+        <th scope="col">Maintenance</th>
+        <th scope="col">Month</th>
+        <th scope="col">Rent</th>
+        <th scope="col">Insurance</th>
+    </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+@section Scripts {
+    <script src="/js/RentBuyCalculator.js"></script>
+    <script>
+
+        document.querySelector('#genAssumpToggle').addEventListener('click',
+            function () {
+                toggleGeneralAssumptions();
+            });
+
+        document.querySelector('#purchaseAssumpToggle').addEventListener('click',
+            function () {
+                togglePurchaseAssumptions();
+            });
+
+        document.querySelector('#ResidencyLength').addEventListener('change',
+            function() {
+                 residencyChanged();
+            });
+        document.querySelector('#HousePrice').addEventListener('change',
+            function() {
+                calculateDownPayment();
+            });
+        document.querySelector('#DownPaymentPercent').addEventListener('change',
+            function() {
+                calculateDownPayment();
+            });
+        document.querySelector('#calculateBtn').addEventListener('click',
+            function() {
+                calculate();
+            });
+
+        calculateDownPayment();
+        residencyChanged();
+
+        function residencyChanged() {
+            const resLength = getResidencyLength('M');
+            document.getElementById('residencyMonths').innerText = `Months: ${resLength}`;
+        }
+
+        function calculateDownPayment() {
+            const downPayment = getDownPayment();
+            const downPaymentStr =
+                new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(downPayment);
+
+            document.getElementById('downPayment').innerText = `Down Payment: ${downPaymentStr}`;
+        }
+
+        function toggleGeneralAssumptions() {
+            document.querySelector('#genAssump').classList.toggle('expanded');
+            const genAssumpToggle = document.getElementById('genAssumpToggle');
+            genAssumpToggle.innerText = (genAssumpToggle.innerText === '+') ? '-' : '+';
+        }
+
+        function togglePurchaseAssumptions() {
+            document.querySelector('#purchaseAssump').classList.toggle('expanded');
+            const purchaseAssumpToggle = document.getElementById('purchaseAssumpToggle');
+            purchaseAssumpToggle.innerText = (purchaseAssumpToggle.innerText === '+') ? '-' : '+';
+        }
+
+        function getResidencyLength(period = 'y') {
+            const resLength = Number(document.getElementById('ResidencyLength').value);
+
+            switch (period) {
+            case 'd':
+            case 'D':
+                return resLength * 365;
+            case 'm':
+            case 'M':
+                return resLength * 12;
+            }
+
+            return resLength;
+        }
+
+        function getInvestmentReturnRate(period = 'y') {
+            const invRetRate = Number(document.getElementById('InvestmentReturnRate').value) / 100;
+
+            switch (period) {
+            case 'd':
+            case 'D':
+                return Math.pow((1 + invRetRate), 1 / 365) - 1;
+            case 'm':
+            case 'M':
+                return Math.pow((1 + invRetRate), 1 / 12) - 1;
+            }
+
+            return invRetRate;
+        }
+
+        function getCapitalGainsTaxRate() {
+            return Number(document.getElementById('CapitalGainsTaxRate').value) / 100;
+        }
+
+        function getHousePrice() {
+            return Number(document.getElementById('HousePrice').value);
+        }
+
+        function getDownPaymentPercent() {
+            return Number(document.getElementById('DownPaymentPercent').value) / 100;
+        }
+
+        function getDownPayment() {
+            const housePrice = getHousePrice();
+            const downPaymentPercent = getDownPaymentPercent();
+            const downPayment = housePrice * downPaymentPercent;
+            return downPayment;
+        }
+
+        function getBuyingClosingCostRate() {
+            return Number(document.getElementById('BuyingClosingCostRate').value);
+        }
+
+        function getSellingClosingCostRate() {
+            return Number(document.getElementById('SellingClosingCostRate').value);
+        }
+
+        function getMortgageTerm(period = 'y') {
+            const mortTerm = Number(document.getElementById('MortgageTerm').value);
+
+            switch (period) {
+            case 'd':
+            case 'D':
+                return mortTerm * 365;
+            case 'm':
+            case 'M':
+                return mortTerm * 12;
+            }
+
+            return mortTerm;
+        }
+
+        function getInterestRate(period = 'y') {
+            const intRate = Number(document.getElementById('InterestRate').value);
+
+            switch (period) {
+            case 'd':
+            case 'D':
+                return intRate / 365;
+            case 'm':
+            case 'M':
+                return intRate / 12;
+            }
+
+            return intRate;
+        }
+
+        function getHousePriceGrowthRate(period = 'y') {
+            const hpgr = Number(document.getElementById('HousePriceGrowthRate').value);
+
+            switch (period) {
+            case 'd':
+            case 'D':
+                return Math.pow(1 + hpgr, 1 / 365) - 1;
+            case 'm':
+            case 'M':
+                return Math.pow(1 + hpgr, 1 / 12) - 1;
+            }
+
+            return hpgr;
+        }
+
+        function getPropertyTaxRate(period = 'y') {
+            const propTaxRate = Number(document.getElementById('PropertyTaxRate').value);
+
+            switch (period) {
+            case 'd':
+            case 'D':
+                return propTaxRate / 365;
+            case 'm':
+            case 'M':
+                return propTaxRate / 12;
+            }
+
+            return propTaxRate;
+        }
+
+        function getInsuranceRate(period = 'y') {
+            const insRate = Number(document.getElementById('InsuranceRate').value);
+
+            switch (period) {
+            case 'd':
+            case 'D':
+                return insRate / 365;
+            case 'm':
+            case 'M':
+                return insRate / 12;
+            }
+
+            return insRate;
+        }
+
+        function getMaintenanceCostRate(period = 'y') {
+            const mxRate = Number(document.getElementById('MaintenanceCostRate').value) / 100;
+
+            switch (period) {
+            case 'd':
+            case 'D':
+                return mxRate / 365;
+            case 'm':
+            case 'M':
+                return mxRate / 12;
+            }
+
+            return mxRate;
+        }
+
+        function displayData(table, buyData, rentData) {
+            for (let i = 0; i < buyData.length; i++) {
+                appendRow(table, buyData[i], rentData[i]);
+            }
+        }
+
+        function appendRow(table, buyData, rentData) {
+            const row = table.insertRow();
+
+            const formatter = new Intl.NumberFormat('en-US',
+                {
+                    style: 'currency',
+                    currency: 'USD'
+                });
+
+
+            // TODO: DRY VIOLATION
+            // TODO: Fix month formatting as currency!
+            Object.keys(buyData).forEach(k => {
+                const cell = row.insertCell();
+                const cellText = document.createTextNode(formatter.format(buyData[k]));
+                cell.appendChild(cellText);
+            });
+
+            Object.keys(rentData).forEach(k => {
+                const cell = row.insertCell();
+                const cellText = document.createTextNode(formatter.format(rentData[k]));
+                cell.appendChild(cellText);
+            });
+        }
+
+        function deriv(calc, rent) {
+            const step = .0001;
+            return (calc.calculate(rent + step).totalCosts - calc.calculate(rent).totalCosts) / step;
+        }
+
+        function calculate() {
+            const amortizationTable = document.getElementById('amortizationTable').getElementsByTagName('tbody')[0];
+            amortizationTable.innerHTML = '';
+
+            const periodType = 'M';
+
+            const resLen = getResidencyLength(periodType);
+            const investRetRate = getInvestmentReturnRate(periodType);
+            const housePrice = getHousePrice();
+            const housePriceGrowthRate = getHousePriceGrowthRate(periodType);
+            const downPayment = getDownPayment();
+            const mortgageTerm = getMortgageTerm(periodType);
+            const intRate = getInterestRate(periodType);
+            const propTaxRate = getPropertyTaxRate(periodType);
+            const insureRate = getInsuranceRate(periodType);
+            const mxCostRate = getMaintenanceCostRate(periodType);
+            const buyCloseRate = getBuyingClosingCostRate();
+            const sellCloseRate = getSellingClosingCostRate();
+            const capGainsRate = getCapitalGainsTaxRate();
+            
+            const buyCalc = new BuyCalculator(resLen,
+                investRetRate,
+                housePrice,
+                housePriceGrowthRate,
+                downPayment,
+                mortgageTerm,
+                intRate,
+                propTaxRate,
+                insureRate,
+                mxCostRate,
+                buyCloseRate,
+                sellCloseRate,
+                capGainsRate);
+
+            const buyData = buyCalc.calculate();
+
+            const totalBuyCosts = buyData["totalCosts"];
+
+            // TODO: Refactor newton's method to function
+            let rent = 1;
+            const rc = new RentCalculator(resLen, investRetRate, 1, .012, capGainsRate);
+            let rentData = rc.calculate(rent);
+            let totalRentCosts = 0;
+
+            do {
+                rent = rent - ((rentData.totalCosts - totalBuyCosts) / deriv(rc, rent));
+                rentData = rc.calculate(rent);
+                totalRentCosts = rentData.totalCosts;
+
+            } while (Math.abs(totalBuyCosts - totalRentCosts) > 0.00001);
+
+            console.log(buyData);
+            console.log(rentData);
+            console.log(rent);
+
+            displayData(amortizationTable, buyData.amortizationTable, rentData.amortizationTable);
+
+        }
+    </script>
+}
