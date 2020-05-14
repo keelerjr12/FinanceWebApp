@@ -1,4 +1,5 @@
 using FinanceDataAccess;
+using FinanceWebLib;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -28,6 +29,8 @@ namespace FinanceWebApp
             services.AddTransient<IncomeRepository>();
             services.AddTransient<NetworthRepository>();
             services.AddTransient<HouseRepository>();
+
+            services.AddTransient<MonteCarloService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

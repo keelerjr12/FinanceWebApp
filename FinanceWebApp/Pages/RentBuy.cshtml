@@ -72,8 +72,8 @@
         <label id="purchaseAssumpToggle">+</label>
         <div id="purchaseAssump" class="section collapsible highlight">
             <div class="form-group">
+                <label asp-for="BuyingClosingCostRate">Buying Closing Cost Rate:</label>
                 <div class="input-group mb-3">
-                    <label asp-for="BuyingClosingCostRate">Buying Closing Cost Rate:</label>
                     <input class="form-control" asp-for="BuyingClosingCostRate"/>
                     <div class="input-group-append">
                         <span class="input-group-text">%</span>
@@ -81,17 +81,17 @@
                 </div>
             </div>
             <div class="form-group">
+                <label asp-for="SellingClosingCostRate">Selling Closing Cost Rate:</label>
                 <div class="input-group mb-3">
-                    <label asp-for="SellingClosingCostRate">Selling Closing Cost Rate:</label>
-                    <input class="form-control" asp-for="SellingClosingCostRate"/>                    
+                    <input class="form-control" asp-for="SellingClosingCostRate"/>
                     <div class="input-group-append">
                         <span class="input-group-text">%</span>
                     </div>
                 </div>
             </div>
             <div class="form-group">
+                <label asp-for="HousePriceGrowthRate">House Price Growth Rate:</label>
                 <div class="input-group mb-3">
-                    <label asp-for="HousePriceGrowthRate">House Price Growth Rate:</label>
                     <input class="form-control" asp-for="HousePriceGrowthRate"/>
                     <div class="input-group-append">
                         <span class="input-group-text">%</span>
@@ -99,8 +99,8 @@
                 </div>
             </div>
             <div class="form-group">
+                <label asp-for="PropertyTaxRate">Property Tax Rate:</label>
                 <div class="input-group mb-3">
-                    <label asp-for="PropertyTaxRate">Property Tax Rate:</label>
                     <input class="form-control" asp-for="PropertyTaxRate"/>
                     <div class="input-group-append">
                         <span class="input-group-text">%</span>
@@ -108,8 +108,8 @@
                 </div>
             </div>
             <div class="form-group">
+                <label asp-for="InsuranceRate">Insurance Rate:</label>
                 <div class="input-group mb-3">
-                    <label asp-for="InsuranceRate">Insurance Rate:</label>
                     <input class="form-control" asp-for="InsuranceRate"/>
                     <div class="input-group-append">
                         <span class="input-group-text">%</span>
@@ -117,8 +117,8 @@
                 </div>
             </div>
             <div class="form-group">
+                <label asp-for="MaintenanceCostRate">Maintenance Cost Rate:</label>
                 <div class="input-group mb-3">
-                    <label asp-for="MaintenanceCostRate">Maintenance Cost Rate:</label>
                     <input class="form-control" asp-for="MaintenanceCostRate"/>
                     <div class="input-group-append">
                         <span class="input-group-text">%</span>
@@ -295,11 +295,11 @@
         }
 
         function getBuyingClosingCostRate() {
-            return Number(document.getElementById('BuyingClosingCostRate').value);
+            return Number(document.getElementById('BuyingClosingCostRate').value) / 100;
         }
 
         function getSellingClosingCostRate() {
-            return Number(document.getElementById('SellingClosingCostRate').value);
+            return Number(document.getElementById('SellingClosingCostRate').value / 100);
         }
 
         function getMortgageTerm(period = 'y') {
@@ -318,7 +318,7 @@
         }
 
         function getInterestRate(period = 'y') {
-            const intRate = Number(document.getElementById('InterestRate').value);
+            const intRate = Number(document.getElementById('InterestRate').value) / 100;
 
             switch (period) {
             case 'd':
@@ -333,7 +333,7 @@
         }
 
         function getHousePriceGrowthRate(period = 'y') {
-            const hpgr = Number(document.getElementById('HousePriceGrowthRate').value);
+            const hpgr = Number(document.getElementById('HousePriceGrowthRate').value) / 100;
 
             switch (period) {
             case 'd':
@@ -348,7 +348,7 @@
         }
 
         function getPropertyTaxRate(period = 'y') {
-            const propTaxRate = Number(document.getElementById('PropertyTaxRate').value);
+            const propTaxRate = Number(document.getElementById('PropertyTaxRate').value) / 100;
 
             switch (period) {
             case 'd':
@@ -363,7 +363,7 @@
         }
 
         function getInsuranceRate(period = 'y') {
-            const insRate = Number(document.getElementById('InsuranceRate').value);
+            const insRate = Number(document.getElementById('InsuranceRate').value) / 100;
 
             switch (period) {
             case 'd':

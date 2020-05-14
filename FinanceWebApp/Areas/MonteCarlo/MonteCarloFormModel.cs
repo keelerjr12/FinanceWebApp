@@ -14,5 +14,7 @@ namespace FinanceWebApp.Areas.MonteCarlo
         [Required]
         [Range(0, 10000000)] 
         public int Contribution { get; set; } = 18000;
+
+        public bool InflationAdjusted { get; set; }
     }
 }

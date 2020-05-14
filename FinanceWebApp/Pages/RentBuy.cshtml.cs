@@ -26,27 +26,28 @@ namespace FinanceWebApp.Pages
         public int MortgageTerm { get; set; } = 30;
 
         [BindProperty]
+        [DisplayFormat(DataFormatString = "{0:F1}", ApplyFormatInEditMode = true)]
         public decimal BuyingClosingCostRate { get; set; } = .0m;
 
         [BindProperty]
-        [DisplayFormat(DataFormatString = "{0:F3}", ApplyFormatInEditMode = true)]
-        public decimal SellingClosingCostRate { get; set; } = .060m;
-
-        [BindProperty]
-        [DisplayFormat(DataFormatString = "{0:F5}", ApplyFormatInEditMode = true)]
-        public decimal InterestRate { get; set; } = .03875m;
+        [DisplayFormat(DataFormatString = "{0:F1}", ApplyFormatInEditMode = true)]
+        public decimal SellingClosingCostRate { get; set; } = 6.0m;
 
         [BindProperty]
         [DisplayFormat(DataFormatString = "{0:F3}", ApplyFormatInEditMode = true)]
-        public decimal HousePriceGrowthRate { get; set; } = .028m;
+        public decimal InterestRate { get; set; } = 3.875m;
 
         [BindProperty]
-        [DisplayFormat(DataFormatString = "{0:F4}", ApplyFormatInEditMode = true)]
-        public decimal PropertyTaxRate { get; set; } = .0235m;
+        [DisplayFormat(DataFormatString = "{0:F1}", ApplyFormatInEditMode = true)]
+        public decimal HousePriceGrowthRate { get; set; } = 2.8m;
 
         [BindProperty]
-        [DisplayFormat(DataFormatString = "{0:F4}", ApplyFormatInEditMode = true)]
-        public decimal InsuranceRate { get; set; } = .009m;
+        [DisplayFormat(DataFormatString = "{0:F2}", ApplyFormatInEditMode = true)]
+        public decimal PropertyTaxRate { get; set; } = 2.35m;
+
+        [BindProperty]
+        [DisplayFormat(DataFormatString = "{0:F2}", ApplyFormatInEditMode = true)]
+        public decimal InsuranceRate { get; set; } = .9m;
 
         [BindProperty]
         [DisplayFormat(DataFormatString = "{0:F2}", ApplyFormatInEditMode = true)]

@@ -1,5 +1,4 @@
-﻿using System;
-using FinanceWebLib;
+﻿using FinanceWebLib;
 using System.Collections.Generic;
 using Npgsql;
 using Microsoft.Extensions.Options;

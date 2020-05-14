@@ -1,0 +1,23 @@
+﻿@model IDictionary<string, FinanceWebLib.Trial>
+@{
+}
+
+<div class="d-flex justify-content-center">
+    <div>
+        <div class="row">
+            <div class="col">Max:</div>
+            <div class="col">@Model["Max"].Balances.Last().ToString("C")</div>
+            <div class="col">@Model["Max"].IRR.ToString("P2")</div>
+        </div>
+        <div class="row">
+            <div class="col">Median:</div>
+            <div class="col">@Model["Median"].Balances.Last().ToString("C")</div>
+            <div class="col">@Model["Median"].IRR.ToString("P2")</div>
+        </div>
+        <div class="row">
+            <div class="col">Min:</div>
+            <div class="col">@Model["Min"].Balances.Last().ToString("C")</div>
+            <div class="col">@Model["Min"].IRR.ToString("P2")</div>
+        </div>
+    </div>
+</div>
