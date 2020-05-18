@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FinanceLib\FinanceLib.csproj" />
-    <ProjectReference Include="..\FinanceWebLib\FinanceLib.csproj" />
   </ItemGroup>
 
 </Project>

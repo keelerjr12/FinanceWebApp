@@ -18,7 +18,6 @@
   <ItemGroup>
     <ProjectReference Include="..\FinanceDataAccess\FinanceDataAccess.csproj" />
     <ProjectReference Include="..\FinanceLib\FinanceLib.csproj" />
-    <ProjectReference Include="..\FinanceWebLib\FinanceLib.csproj" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
