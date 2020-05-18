@@ -26,8 +26,13 @@
 
 <form class="mt-4 mb-4">
     <fieldset class="form-group">
-        <legend>General Assumptions</legend>
-        <label id="genAssumpToggle">+</label>
+        <legend>
+            <span>General Assumptions</span>
+            <svg id="genAssumpToggle" class="bi bi-gear" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M8.837 1.626c-.246-.835-1.428-.835-1.674 0l-.094.319A1.873 1.873 0 014.377 3.06l-.292-.16c-.764-.415-1.6.42-1.184 1.185l.159.292a1.873 1.873 0 01-1.115 2.692l-.319.094c-.835.246-.835 1.428 0 1.674l.319.094a1.873 1.873 0 011.115 2.693l-.16.291c-.415.764.42 1.6 1.185 1.184l.292-.159a1.873 1.873 0 012.692 1.116l.094.318c.246.835 1.428.835 1.674 0l.094-.319a1.873 1.873 0 012.693-1.115l.291.16c.764.415 1.6-.42 1.184-1.185l-.159-.291a1.873 1.873 0 011.116-2.693l.318-.094c.835-.246.835-1.428 0-1.674l-.319-.094a1.873 1.873 0 01-1.115-2.692l.16-.292c.415-.764-.42-1.6-1.185-1.184l-.291.159A1.873 1.873 0 018.93 1.945l-.094-.319zm-2.633-.283c.527-1.79 3.065-1.79 3.592 0l.094.319a.873.873 0 001.255.52l.292-.16c1.64-.892 3.434.901 2.54 2.541l-.159.292a.873.873 0 00.52 1.255l.319.094c1.79.527 1.79 3.065 0 3.592l-.319.094a.873.873 0 00-.52 1.255l.16.292c.893 1.64-.902 3.434-2.541 2.54l-.292-.159a.873.873 0 00-1.255.52l-.094.319c-.527 1.79-3.065 1.79-3.592 0l-.094-.319a.873.873 0 00-1.255-.52l-.292.16c-1.64.893-3.433-.902-2.54-2.541l.159-.292a.873.873 0 00-.52-1.255l-.319-.094c-1.79-.527-1.79-3.065 0-3.592l.319-.094a.873.873 0 00.52-1.255l-.16-.292c-.892-1.64.902-3.433 2.541-2.54l.292.159a.873.873 0 001.255-.52l.094-.319z" clip-rule="evenodd"/>
+                <path fill-rule="evenodd" d="M8 5.754a2.246 2.246 0 100 4.492 2.246 2.246 0 000-4.492zM4.754 8a3.246 3.246 0 116.492 0 3.246 3.246 0 01-6.492 0z" clip-rule="evenodd"/>
+            </svg>
+        </legend>
         <div id="genAssump" class="section collapsible highlight">
             <div class="form-group">
                 <label asp-for="InvestmentReturnRate">Investment Return Rate:</label>
@@ -54,7 +59,7 @@
                     <div class="input-group-append">
                         <span class="input-group-text">%</span>
                     </div>
-             </div>
+                </div>
             </div>
         </div>
         <div class="form-group">
@@ -68,8 +73,13 @@
         </div>
     </fieldset>
     <fieldset class="form-group">
-        <legend>Purchase Assumptions</legend>
-        <label id="purchaseAssumpToggle">+</label>
+        <legend>
+            <span>Purchase Assumptions</span>
+            <svg id="purchaseAssumpToggle" class="bi bi-gear" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M8.837 1.626c-.246-.835-1.428-.835-1.674 0l-.094.319A1.873 1.873 0 014.377 3.06l-.292-.16c-.764-.415-1.6.42-1.184 1.185l.159.292a1.873 1.873 0 01-1.115 2.692l-.319.094c-.835.246-.835 1.428 0 1.674l.319.094a1.873 1.873 0 011.115 2.693l-.16.291c-.415.764.42 1.6 1.185 1.184l.292-.159a1.873 1.873 0 012.692 1.116l.094.318c.246.835 1.428.835 1.674 0l.094-.319a1.873 1.873 0 012.693-1.115l.291.16c.764.415 1.6-.42 1.184-1.185l-.159-.291a1.873 1.873 0 011.116-2.693l.318-.094c.835-.246.835-1.428 0-1.674l-.319-.094a1.873 1.873 0 01-1.115-2.692l.16-.292c.415-.764-.42-1.6-1.185-1.184l-.291.159A1.873 1.873 0 018.93 1.945l-.094-.319zm-2.633-.283c.527-1.79 3.065-1.79 3.592 0l.094.319a.873.873 0 001.255.52l.292-.16c1.64-.892 3.434.901 2.54 2.541l-.159.292a.873.873 0 00.52 1.255l.319.094c1.79.527 1.79 3.065 0 3.592l-.319.094a.873.873 0 00-.52 1.255l.16.292c.893 1.64-.902 3.434-2.541 2.54l-.292-.159a.873.873 0 00-1.255.52l-.094.319c-.527 1.79-3.065 1.79-3.592 0l-.094-.319a.873.873 0 00-1.255-.52l-.292.16c-1.64.893-3.433-.902-2.54-2.541l.159-.292a.873.873 0 00-.52-1.255l-.319-.094c-1.79-.527-1.79-3.065 0-3.592l.319-.094a.873.873 0 00.52-1.255l-.16-.292c-.892-1.64.902-3.433 2.541-2.54l.292.159a.873.873 0 001.255-.52l.094-.319z" clip-rule="evenodd"/>
+                <path fill-rule="evenodd" d="M8 5.754a2.246 2.246 0 100 4.492 2.246 2.246 0 000-4.492zM4.754 8a3.246 3.246 0 116.492 0 3.246 3.246 0 01-6.492 0z" clip-rule="evenodd"/>
+            </svg>
+        </legend>
         <div id="purchaseAssump" class="section collapsible highlight">
             <div class="form-group">
                 <label asp-for="BuyingClosingCostRate">Buying Closing Cost Rate:</label>
@@ -132,7 +142,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text">$</span>
                 </div>
-                <input class="form-control" asp-for="HousePrice" />
+                <input class="form-control" asp-for="HousePrice"/>
                 <div class="input-group-append">
                     <span class="input-group-text">.00</span>
                 </div>
@@ -142,7 +152,7 @@
             <div class="form-group">
                 <label asp-for="DownPaymentPercent">Down Payment %:</label>
                 <div class="input-group mb-3">
-                    <input class="form-control" asp-for="DownPaymentPercent" />
+                    <input class="form-control" asp-for="DownPaymentPercent"/>
                     <div class="input-group-append">
                         <span class="input-group-text">%</span>
                     </div>
@@ -154,7 +164,12 @@
         </div>
         <div class="form-group">
             <label asp-for="InterestRate">Interest Rate (APR):</label>
-            <input class="form-control" asp-for="InterestRate"/>
+            <div  class="input-group mb-3">
+                <input class="form-control" asp-for="InterestRate"/>
+                <div class="input-group-append">
+                    <span class="input-group-text">%</span>
+                </div>
+            </div>
         </div>
         <div class="form-group">
             <label asp-for="MortgageTerm">Mortgage Term (years):</label>
@@ -163,7 +178,12 @@
     </fieldset>
     <input type="button" id="calculateBtn" class="btn btn-primary" value="Calculate"/>
 </form>
-<table id="amortizationTable" class="table table-hover">
+<div id="breakEvenPriceJumbotron" class="data d-none jumbotron text-center">
+    <span>You should <strong>RENT</strong> if you can rent for less than: </span>
+    <strong><span id="breakEvenPrice"></span></strong>
+</div>
+<button id="amortTableVisBtn" class="btn btn-link data d-none">Show Amortization Table</button>
+<table id="amortizationTable" class="table table-hover data d-none">
     <thead>
     <tr>
         <th colspan="9" class="text-center">Purchase</th>
@@ -186,6 +206,7 @@
     </thead>
     <tbody></tbody>
 </table>
+
 @section Scripts {
     <script src="/js/RentBuyCalculator.js"></script>
     <script>
@@ -212,9 +233,16 @@
             function() {
                 calculateDownPayment();
             });
-        document.querySelector('#calculateBtn').addEventListener('click',
+        document.querySelector('#amortTableVisBtn').addEventListener('click',
             function() {
+                toggleAmortTableVis();
+            });
+        document.querySelector('#calculateBtn').addEventListener('click',
+            function () {
                 calculate();
+                toggleDataVis();
+                toggleAmortTableVis();
+                document.getElementById("breakEvenPriceJumbotron").scrollIntoView();
             });
 
         calculateDownPayment();
@@ -235,14 +263,10 @@
 
         function toggleGeneralAssumptions() {
             document.querySelector('#genAssump').classList.toggle('expanded');
-            const genAssumpToggle = document.getElementById('genAssumpToggle');
-            genAssumpToggle.innerText = (genAssumpToggle.innerText === '+') ? '-' : '+';
         }
 
         function togglePurchaseAssumptions() {
             document.querySelector('#purchaseAssump').classList.toggle('expanded');
-            const purchaseAssumpToggle = document.getElementById('purchaseAssumpToggle');
-            purchaseAssumpToggle.innerText = (purchaseAssumpToggle.innerText === '+') ? '-' : '+';
         }
 
         function getResidencyLength(period = 'y') {
@@ -483,8 +507,23 @@
             console.log(rentData);
             console.log(rent);
 
-            displayData(amortizationTable, buyData.amortizationTable, rentData.amortizationTable);
+            document.getElementById("breakEvenPrice").innerText = rent.toLocaleString('en-US', {
+                style: 'currency',
+                currency: 'USD'
+            });
 
+            displayData(amortizationTable, buyData.amortizationTable, rentData.amortizationTable);
+        }
+
+        function toggleDataVis() {
+            [...document.getElementsByClassName("data")].forEach(el => el.classList.toggle("d-none"));
+        }
+
+        function toggleAmortTableVis() {
+            const table = document.getElementById("amortizationTable");
+            table.style.display = table.style.display === "none" ? "block" : "none";
+
+            document.getElementById("amortTableVisBtn").innerText = table.style.display === "none" ? "Show Amortization Table" : "Hide Amortization Table";
         }
     </script>
 }

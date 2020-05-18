@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace FinanceWebApp.Pages
+namespace FinanceWebApp.Areas.Calculators.Models
 {
     public class NetworthPercentileCalculatorFormModel
     {

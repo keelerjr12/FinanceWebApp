@@ -4,7 +4,7 @@ using FinanceWebLib;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace FinanceWebApp.Pages
+namespace FinanceWebApp.Areas.Calculators.Models
 {
     public abstract class CalculatorModel : PageModel
     {

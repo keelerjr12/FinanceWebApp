@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using FinanceWebLib;
+using FinanceWebLib.MonteCarlo;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -30,16 +31,20 @@ namespace FinanceWebApp.Areas.MonteCarlo.Pages
 
             XAxis = Enumerable.Range(0, MonteCarloFormModel.NumYears + 1);
 
-            var percentiles = new List<double> { 1.0, .5, 0 };
-            var percentTrials = _monteCarloService.RetrieveTrialsByPercentile(percentiles, MonteCarloFormModel.NumYears, MonteCarloFormModel.InitialValue, MonteCarloFormModel.Contribution);
+            var percentiles = new List<double> { .975, .5, .025 };
+            var percentTrials = _monteCarloService.RetrieveTrialsByPercentile(percentiles, 
+                MonteCarloFormModel.NumYears, 
+                MonteCarloFormModel.InitialValue, 
+                MonteCarloFormModel.Contribution,
+                MonteCarloFormModel.InflationAdjusted);
 
             var max = percentTrials[0];
             var median = percentTrials[1];
             var min = percentTrials[2];
 
-            Trials.Add("Max", max);
-            Trials.Add("Median", median);
-            Trials.Add("Min", min);
+            Trials.Add("97.5%", max);
+            Trials.Add("50%", median);
+            Trials.Add("2.5%", min);
 
             return Page();
         }

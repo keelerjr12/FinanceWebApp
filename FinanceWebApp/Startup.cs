@@ -1,5 +1,6 @@
 using FinanceDataAccess;
 using FinanceWebLib;
+using FinanceWebLib.MonteCarlo;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;

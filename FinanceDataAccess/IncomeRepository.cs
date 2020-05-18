@@ -5,39 +5,37 @@ using Npgsql;
 
 namespace FinanceDataAccess
 {
-    public class IncomeRepository
+    public class IncomeRepository : BaseRepository
     {
-        public IncomeRepository(IOptions<FinanceDbOptions> dbOptions)
+        public IncomeRepository(IOptions<FinanceDbOptions> dbOptions) : base(dbOptions)
         {
-            _connStr = dbOptions.Value.FinanceDatabase;
         }
 
-        public IList<SurveyData> GetSamples(int minAge = 0, int maxAge = int.MaxValue)
+        protected override NpgsqlCommand GetCommand(NpgsqlConnection conn, int minAge, int maxAge)
+        {
+            var command = conn.CreateCommand();
+
+            command.CommandText = "SELECT SUM(weight) AS weight, income FROM survey_data WHERE age BETWEEN @ageStart AND @ageEnd GROUP BY income";
+            command.Parameters.AddWithValue("@ageStart", minAge);
+            command.Parameters.AddWithValue("@ageEnd", maxAge);
+
+            return command;
+        }
+
+        protected override List<SurveyData> ReadData(NpgsqlCommand command)
         {
             var samples = new List<SurveyData>();
 
-            using (var conn = new NpgsqlConnection(_connStr))
+            using var reader = command.ExecuteReader();
+            while (reader.Read())
             {
-                conn.Open();
-                using var command = conn.CreateCommand();
+                var weight = reader.GetDouble(reader.GetOrdinal("weight"));
+                var income = reader.GetDouble(reader.GetOrdinal("income"));
 
-                command.CommandText = "SELECT SUM(weight) AS weight, income FROM survey_data WHERE age BETWEEN @ageStart AND @ageEnd GROUP BY income";
-                command.Parameters.AddWithValue("@ageStart", minAge);
-                command.Parameters.AddWithValue("@ageEnd", maxAge);
-
-                using var reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    var weight = reader.GetDouble(reader.GetOrdinal("weight"));
-                    var income = reader.GetDouble(reader.GetOrdinal("income"));
-
-                    samples.Add(new SurveyData { Weight = weight, Data = income });
-                }
+                samples.Add(new SurveyData { Weight = weight, Data = income });
             }
 
             return samples;
         }
-
-        private readonly string _connStr;
     }
 }

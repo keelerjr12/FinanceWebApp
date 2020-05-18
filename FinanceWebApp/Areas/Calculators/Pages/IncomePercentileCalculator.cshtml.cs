@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using FinanceDataAccess;
+using FinanceWebApp.Areas.Calculators.Models;
 using FinanceWebLib;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FinanceWebApp.Pages
+namespace FinanceWebApp.Areas.Calculators.Pages
 {
     public class IncomePercentileCalculatorModel : CalculatorModel
     {

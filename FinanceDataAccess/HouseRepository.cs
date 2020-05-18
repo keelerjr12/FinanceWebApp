@@ -5,39 +5,37 @@ using Npgsql;
 
 namespace FinanceDataAccess
 {
-    public class HouseRepository
+    public class HouseRepository : BaseRepository
     {
-        public HouseRepository(IOptions<FinanceDbOptions> dbOptions)
+        public HouseRepository(IOptions<FinanceDbOptions> dbOptions) : base(dbOptions)
         {
-            _connStr = dbOptions.Value.FinanceDatabase;
         }
 
-        public IList<SurveyData> GetSamples(int minAge = 0, int maxAge = int.MaxValue)
+        protected override NpgsqlCommand GetCommand(NpgsqlConnection conn, int minAge, int maxAge)
+        {
+            var command = conn.CreateCommand();
+
+            command.CommandText = "SELECT SUM(weight) AS weight, house_value FROM survey_data WHERE house_owned = TRUE AND age BETWEEN @ageStart AND @ageEnd GROUP BY house_value";
+            command.Parameters.AddWithValue("@ageStart", minAge);
+            command.Parameters.AddWithValue("@ageEnd", maxAge);
+
+            return command;
+        }
+
+        protected override List<SurveyData> ReadData(NpgsqlCommand command)
         {
             var samples = new List<SurveyData>();
 
-            using (var conn = new NpgsqlConnection(_connStr))
+            using var reader = command.ExecuteReader();
+            while (reader.Read())
             {
-                conn.Open();
-                using var command = conn.CreateCommand();
+                var weight = reader.GetDouble(reader.GetOrdinal("weight"));
+                var houseValue = reader.GetDouble(reader.GetOrdinal("house_value"));
 
-                command.CommandText = "SELECT SUM(weight) AS weight, house_value FROM survey_data WHERE house_owned = TRUE AND age BETWEEN @ageStart AND @ageEnd GROUP BY house_value";
-                command.Parameters.AddWithValue("@ageStart", minAge);
-                command.Parameters.AddWithValue("@ageEnd", maxAge);
-
-                using var reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    var weight = reader.GetDouble(reader.GetOrdinal("weight"));
-                    var houseValue = reader.GetDouble(reader.GetOrdinal("house_value"));
-
-                    samples.Add(new SurveyData { Weight = weight, Data = houseValue });
-                }
+                samples.Add(new SurveyData { Weight = weight, Data = houseValue });
             }
 
             return samples;
         }
-
-        private readonly string _connStr;
     }
 }

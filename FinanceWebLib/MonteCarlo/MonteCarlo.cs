@@ -1,15 +1,16 @@
-﻿using MathNet.Numerics.Distributions;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using MathNet.Numerics.Distributions;
 
-namespace FinanceWebLib
+namespace FinanceWebLib.MonteCarlo
 {
     public class MonteCarlo
     {
         private const double MEAN = .115861;
         private const double STDDEV = .180662;
+        private const double INFLATION_RATE = .03;
 
-        public static IList<Trial> Run(int numTrials, int numYears, double initialValue, double contribution)
+        public static MonteCarloResults Run(int numTrials, int numYears, double initialValue, double contribution, bool inflationAdjusted)
         {
             if (numTrials < 1)
                 throw new ArgumentOutOfRangeException(nameof(numTrials));
@@ -22,20 +23,24 @@ namespace FinanceWebLib
 
             for (var trialNum = 0; trialNum < numTrials; trialNum++)
             {
-                var trial = GenerateTrial(numYears, initialValue, contribution);
+                var trial = GenerateTrial(numYears, initialValue, contribution, inflationAdjusted);
                 trials.Add(trial);
             }
 
-            return trials;
+            return new MonteCarloResults(trials);
         }
 
-        private static Trial GenerateTrial(int numYears, double initialValue, double contribution)
+        private static Trial GenerateTrial(int numYears, double initialValue, double contribution, bool inflationAdjusted)
         {
             var trial = new Trial(initialValue);
 
             for (var year = 1; year <= numYears; year++)
             {
                 var ret = GenerateReturn();
+
+                if (inflationAdjusted)
+                    ret = ((1 + ret) / (1 + INFLATION_RATE)) - 1;
+
                 trial.CompoundAndContribute(ret, contribution);
             }
 

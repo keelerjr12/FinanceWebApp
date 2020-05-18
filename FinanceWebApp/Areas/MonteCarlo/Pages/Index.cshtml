@@ -50,9 +50,9 @@
         new
             {
                 numYears = Model.MonteCarloFormModel.NumYears,
-        max = Model.Trials["Max"],
-                median = Model.Trials["Median"],
-                min = Model.Trials["Min"]
+                max = Model.Trials["97.5%"],
+                median = Model.Trials["50%"],
+                min = Model.Trials["2.5%"]
             })
 
     @await Component.InvokeAsync(typeof(FinanceWebApp.Areas.MonteCarlo.ViewComponents.MonteCarloStatsViewComponent), Model.Trials)

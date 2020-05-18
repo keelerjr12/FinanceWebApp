@@ -24,9 +24,9 @@ namespace FinanceWebApp.Areas.MonteCarlo.ViewComponents
         {
             XAxis = Enumerable.Range(0, numYears + 1);
 
-            TrialPercentiles.Add(new ChartDataPoint { Label = "Min", Data = min.Balances, BackgroundColor = new[] { ConvertColorToRGBAString(Color.OrangeRed, .6f) }, BorderColor = new[] { ConvertColorToRGBAString(Color.OrangeRed) } });
-            TrialPercentiles.Add(new ChartDataPoint { Label = "Median", Data = median.Balances, BackgroundColor = new[] { ConvertColorToRGBAString(Color.LightYellow, .6f) }, BorderColor = new[] { ConvertColorToRGBAString(Color.LightYellow) } });
-            TrialPercentiles.Add(new ChartDataPoint { Label = "Max", Data = max.Balances, BackgroundColor = new[] { ConvertColorToRGBAString(Color.LightSeaGreen, .6f) }, BorderColor = new[] { ConvertColorToRGBAString(Color.LightSeaGreen) } });
+            TrialPercentiles.Add(new ChartDataPoint { Label = "2.5%", Data = min.Balances, BackgroundColor = new[] { ConvertColorToRGBAString(Color.OrangeRed, .6f) }, BorderColor = new[] { ConvertColorToRGBAString(Color.OrangeRed) } });
+            TrialPercentiles.Add(new ChartDataPoint { Label = "50%", Data = median.Balances, BackgroundColor = new[] { ConvertColorToRGBAString(Color.LightYellow, .6f) }, BorderColor = new[] { ConvertColorToRGBAString(Color.LightYellow) } });
+            TrialPercentiles.Add(new ChartDataPoint { Label = "97.5%", Data = max.Balances, BackgroundColor = new[] { ConvertColorToRGBAString(Color.LightSeaGreen, .6f) }, BorderColor = new[] { ConvertColorToRGBAString(Color.LightSeaGreen) } });
 
 
             return View(this);
