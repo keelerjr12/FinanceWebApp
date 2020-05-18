@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using MathNet.Numerics.Distributions;
 
-namespace FinanceWebLib.MonteCarlo
+namespace FinanceLib.MonteCarlo
 {
-    public class MonteCarlo
+    public static class MonteCarlo
     {
         private const double MEAN = .115861;
         private const double STDDEV = .180662;

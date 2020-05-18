@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using FinanceWebLib;
+using FinanceLib;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinanceWebApp.Areas.MonteCarlo.ViewComponents

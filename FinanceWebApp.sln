@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30002.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinanceWebApp", "FinanceWebApp\FinanceWebApp.csproj", "{21ECEF8F-A84C-4657-AA5C-7F600E1975B1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinanceWebLib", "FinanceWebLib\FinanceWebLib.csproj", "{E725C1DE-B71B-4CCE-9BBF-FE08C437216B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinanceLib", "FinanceLib\FinanceLib.csproj", "{E725C1DE-B71B-4CCE-9BBF-FE08C437216B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinanceWebLibTests", "FinanceWebLibTests\FinanceWebLibTests.csproj", "{B736E890-FDC0-4BAE-82A4-72D2C8CC4652}"
 EndProject

@@ -1,8 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using FinanceWebLib;
-using FinanceWebLib.MonteCarlo;
+using FinanceLib;
+using FinanceLib.MonteCarlo;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 

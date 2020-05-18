@@ -1,5 +1,4 @@
-﻿using FinanceWebLib;
-using System.Collections.Generic;
+﻿using FinanceLib;
 using Npgsql;
 using Microsoft.Extensions.Options;
 
@@ -11,7 +10,7 @@ namespace FinanceDataAccess
         {
         }
 
-        protected override NpgsqlCommand GetCommand(NpgsqlConnection conn, int minAge, int maxAge)
+        protected override NpgsqlCommand CreateCommand(NpgsqlConnection conn, int minAge, int maxAge)
         {
             var command = conn.CreateCommand();
 
@@ -22,20 +21,12 @@ namespace FinanceDataAccess
             return command;
         }
 
-        protected override List<SurveyData> ReadData(NpgsqlCommand command)
+        protected override SurveyData ParseSample(NpgsqlDataReader reader)
         {
-            var samples = new List<SurveyData>();
+            var weight = reader.GetDouble(reader.GetOrdinal("weight"));
+            var networth = reader.GetDouble(reader.GetOrdinal("networth"));
 
-            using var reader = command.ExecuteReader();
-            while (reader.Read())
-            {
-                var weight = reader.GetDouble(reader.GetOrdinal("weight"));
-                var networth = reader.GetDouble(reader.GetOrdinal("networth"));
-
-                samples.Add(new SurveyData { Weight = weight, Data = networth });
-            }
-
-            return samples;
+            return new SurveyData { Weight = weight, Data = networth };
         }
     }
 }

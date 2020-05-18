@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FinanceWebLib.MonteCarlo
+namespace FinanceLib.MonteCarlo
 {
     public class MonteCarloService
     {

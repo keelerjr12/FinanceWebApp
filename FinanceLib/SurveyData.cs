@@ -1,4 +1,4 @@
-﻿namespace FinanceWebLib
+﻿namespace FinanceLib
 {
     public class SurveyData
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FinanceWebLib.MonteCarlo
+namespace FinanceLib.MonteCarlo
 {
     public class MonteCarloResults
     {
